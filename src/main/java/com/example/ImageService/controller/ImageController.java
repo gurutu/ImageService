@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.example.ImageService.dao.ImageDTO;
 import com.example.ImageService.dao.ImageInfo;
 import com.example.ImageService.repository.ImageRepository;
 import com.example.ImageService.utils.ImageUtil;
@@ -66,12 +67,12 @@ public class ImageController {
     }
   
     @GetMapping("/images")
-    public List<String> listOfImage(HttpServletRequest request) {
-        List<String> list=new ArrayList<>();
+    public List<ImageDTO> listOfImage(HttpServletRequest request) {
+        List<ImageDTO> list=new ArrayList<>();
         String st=request.getRequestURL().toString();
         String hostname = imageUtil.getHostName(st);
         for(String image:imageUtil.imagename()){
-            list.add(hostname+"/api/image/"+image);
+            list.add(new ImageDTO(image,hostname+"/api/image/"+image));
         }
        
         return list;
